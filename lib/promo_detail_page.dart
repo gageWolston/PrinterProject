@@ -24,7 +24,7 @@ class PromoDetailPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: promo.color.withAlpha((0.1 * 255).round()),
+                color: promo.color.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
@@ -42,7 +42,7 @@ class PromoDetailPage extends StatelessWidget {
                   Text(
                     promo.description,
                     style: TextStyle(
-                      color: colorScheme.onSurface.withAlpha((0.8 * 255).round()),
+                      color: colorScheme.onSurface.withOpacity(0.8),
                       height: 1.4,
                     ),
                   ),
@@ -69,8 +69,8 @@ class PromoDetailPage extends StatelessWidget {
                           child: Text(
                             h,
                             style: TextStyle(
-                                  color: colorScheme.onSurface.withAlpha((0.85 * 255).round()),
-                                ),
+                              color: colorScheme.onBackground.withOpacity(0.85),
+                            ),
                           ),
                         ),
                       ],

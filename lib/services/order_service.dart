@@ -14,12 +14,22 @@ class OrderService extends ChangeNotifier {
 
   List<OrderRecord> get orders => List.unmodifiable(_orders);
 
-  void recordOrder(List<Printer> items, {String? user}) {
+  void recordOrder(
+    List<Printer> items, {
+    String? user,
+    double discount = 0.0,
+    String? couponCode,
+  }) {
     if (items.isEmpty) return;
+    final subtotal = items.fold(0, (sum, item) => sum + item.price);
+    final total = (subtotal - discount).clamp(0, double.infinity).toDouble();
     final order = OrderRecord(
       user: user,
       placedAt: DateTime.now(),
-      total: items.fold(0, (sum, item) => sum + item.price),
+      subtotal: subtotal,
+      discount: discount,
+      couponCode: couponCode,
+      total: total,
       items: items
           .map(
             (p) => {
@@ -27,6 +37,8 @@ class OrderService extends ChangeNotifier {
               'name': p.name,
               'price': p.price,
               'type': p.type,
+              'brand': p.brand,
+              'features': p.features.toList(),
             },
           )
           .toList(),

@@ -76,11 +76,6 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    if (!isRegisterMode && widget.goToAdmin) {
-      Navigator.pushReplacementNamed(context, '/admin');
-      return;
-    }
-
     // Normal login → go to home
     if (!isRegisterMode) {
       Navigator.pushReplacement(
@@ -123,6 +118,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: Text(isRegisterMode ? "Register" : "Login"),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
             if (!widget.goToAdmin)
               TextButton(
@@ -142,8 +143,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-PageRouteBuilder _slideRoute(Widget page) {
-  return PageRouteBuilder(
+Route<T?> _slideRoute<T>(Widget page) {
+  return PageRouteBuilder<T>(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);

@@ -6,12 +6,61 @@ import '../models/printer.dart';
 class PrinterService extends ChangeNotifier {
   final Box _box = Hive.box('printers');
   final List<Printer> _printers = [];
+  late final List<Printer> _featuredPrinters = [
+    Printer(
+      id: 'top-seller',
+      name: 'HP LaserJet Pro Elite',
+      brand: 'HP',
+      type: 'Laser',
+      onSale: true,
+      rating: 4.9,
+      price: 229.99,
+      image: 'images/printers/canon_inkjet.png',
+      description:
+          'Our top-selling compact laser with enterprise security and speedy output.',
+      highlights: [
+        '28 ppm black printing',
+        'Self-healing Wi‑Fi with mobile app setup',
+        'Includes 2-year extended warranty',
+      ],
+      features: {
+        'Black & White',
+        'Copier',
+        'Scanner',
+        'Wireless',
+      },
+    ),
+    Printer(
+      id: 'new-arrival',
+      name: 'Canon Studio Color',
+      brand: 'Canon',
+      type: 'Inkjet',
+      onSale: false,
+      rating: 4.7,
+      price: 349.99,
+      image: 'images/printers/canon_inkjet.png',
+      description: 'A fresh arrival with vivid color output and quiet operation.',
+      highlights: [
+        'Borderless photo printing',
+        'Auto-duplex with smart tray detection',
+        'Eco mode for reduced ink usage',
+      ],
+      features: {
+        'Color',
+        'Scanner',
+        'Copier',
+        'Wireless',
+      },
+    ),
+  ];
 
   PrinterService() {
     _loadPrinters();
   }
 
   List<Printer> get printers => List.unmodifiable(_printers);
+
+  List<Printer> get featuredPrinters => List.unmodifiable(_featuredPrinters);
 
   void addPrinter(Printer printer) {
     _printers.add(printer);
@@ -56,6 +105,7 @@ class PrinterService extends ChangeNotifier {
   List<Printer> get _defaultPrinters => [
         Printer(
           name: 'HP LaserJet Pro',
+          brand: 'HP',
           type: 'Laser',
           onSale: true,
           rating: 4.8,
@@ -67,10 +117,18 @@ class PrinterService extends ChangeNotifier {
             '26 ppm black printing',
             'Automatic duplex printing',
             'Built-in Wi‑Fi and mobile printing',
+            'Secure PIN release',
           ],
+          features: {
+            'Black & White',
+            'Copier',
+            'Scanner',
+            'Wireless',
+          },
         ),
         Printer(
           name: 'Canon Office Inkjet',
+          brand: 'Canon',
           type: 'Inkjet',
           onSale: false,
           rating: 4.5,
@@ -78,13 +136,20 @@ class PrinterService extends ChangeNotifier {
           image: 'images/printers/canon_inkjet.png',
           description: 'Vibrant color output with economical cartridges for everyday use.',
           highlights: [
-            'Borderless photo printing',
             'Hybrid ink system for crisp text',
             'Voice-activated printing support',
+            'Auto document feeder',
           ],
+          features: {
+            'Color',
+            'Scanner',
+            'Fax',
+            'Wireless',
+          },
         ),
         Printer(
           name: 'Epson Dot Matrix',
+          brand: 'Epson',
           type: 'Dot Matrix',
           onSale: true,
           rating: 4.9,
@@ -96,6 +161,11 @@ class PrinterService extends ChangeNotifier {
             'Multi-part form support',
             'Rugged build for warehouses',
           ],
+          features: {
+            'Black & White',
+            'Copier',
+            'Wired',
+          },
         ),
       ];
 }

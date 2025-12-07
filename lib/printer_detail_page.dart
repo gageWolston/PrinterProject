@@ -19,20 +19,6 @@ class PrinterDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Hero(
-                tag: printer.id,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    printer.image,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -43,13 +29,24 @@ class PrinterDetailPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withAlpha((0.1 * 255).round()),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(printer.type),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(printer.type),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      printer.brand,
+                      style: TextStyle(color: Colors.grey.shade700),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -68,6 +65,32 @@ class PrinterDetailPage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Chip(
+                  label: Text(printer.type),
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondaryContainer,
+                ),
+                Chip(
+                  label: Text(printer.brand),
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondaryContainer,
+                ),
+                ...printer.features
+                    .map(
+                      (feature) => Chip(
+                        label: Text(feature),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                    )
+                    .toList(),
               ],
             ),
             const SizedBox(height: 16),
