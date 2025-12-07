@@ -43,24 +43,13 @@ class PrinterDetailPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(printer.type),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      printer.brand,
-                      style: TextStyle(color: Colors.grey.shade700),
-                    ),
-                  ],
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(printer.type),
                 ),
               ],
             ),
@@ -80,20 +69,6 @@ class PrinterDetailPage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: printer.features
-                  .map(
-                    (feature) => Chip(
-                      label: Text(feature),
-                      backgroundColor:
-                          Theme.of(context).colorScheme.secondaryContainer,
-                    ),
-                  )
-                  .toList(),
             ),
             const SizedBox(height: 16),
             Text(

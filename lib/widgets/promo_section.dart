@@ -31,9 +31,19 @@ class PromoSection extends StatelessWidget {
       description: 'Check out our latest model!',
       color: AppPalette.secondary,
       highlights: [
-        'Performance tuned for clear documents',
+        'Performance tuned for photo printing',
         'Energy efficient, low-noise hardware',
         'Trade-in credits available',
+      ],
+    ),
+    PromoItem(
+      title: 'Holiday Sale',
+      description: 'Huge discounts on all models!',
+      color: Colors.teal,
+      highlights: [
+        'Doorbuster pricing on top printers',
+        'Bonus ink bundle while supplies last',
+        'Extended return window for gifts',
       ],
     ),
   ];

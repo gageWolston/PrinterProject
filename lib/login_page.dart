@@ -76,6 +76,11 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
+    if (!isRegisterMode && widget.goToAdmin) {
+      Navigator.pushReplacementNamed(context, '/admin');
+      return;
+    }
+
     // Normal login → go to home
     if (!isRegisterMode) {
       Navigator.pushReplacement(
@@ -137,8 +142,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-Route<T?> _slideRoute<T>(Widget page) {
-  return PageRouteBuilder<T>(
+PageRouteBuilder _slideRoute(Widget page) {
+  return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
