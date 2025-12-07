@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/printer.dart';
 import '../services/cart_service.dart';
+import 'animated_button.dart';
 
 class PrinterCard extends StatelessWidget {
   final Printer printer;
@@ -35,11 +36,14 @@ class PrinterCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                printer.image,
-                width: 90,
-                height: 90,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: printer.name,
+                child: Image.asset(
+                  printer.image,
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(width: 16),
@@ -79,7 +83,16 @@ class PrinterCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   Consumer<CartService>(
                     builder: (context, cart, child) {
-                      return ElevatedButton(
+                      return AnimatedActionButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
                         onPressed: () {
                           cart.addItem(printer);
                           ScaffoldMessenger.of(context).showSnackBar(
