@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FilterList extends StatefulWidget{
+class FilterList extends StatefulWidget {
   final Function(Set<String>) onFiltersChanged;
   const FilterList({super.key, required this.onFiltersChanged});
 
@@ -15,9 +15,18 @@ class FiltersListState extends State<FilterList> {
     'On Sale',
     'Color',
     'Black & White',
+    'Fax',
+    'Copier',
+    'Scanner',
     'Laser',
     'Inkjet',
-    'Epson'
+    'Dot Matrix',
+    'Brand: HP',
+    'Brand: Canon',
+    'Brand: Epson',
+    'Budget (<\$200)',
+    'Midrange (\$200-\$400)',
+    'Premium (\$400+)'
   ];
 
   final Set<String> selectedFilters = {};

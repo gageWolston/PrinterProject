@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../login_page.dart';
+import '../services/auth_service.dart';
+
 class AppDrawer extends StatelessWidget{
   const AppDrawer({super.key});
 
@@ -35,19 +38,22 @@ class AppDrawer extends StatelessWidget{
                   Navigator.pop(context);
                 },
               ),
-              ListTile(//about section
-                leading: Icon(Icons.info),
-                title: Text('About'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
               ListTile( //admin panel
                 leading: Icon(Icons.admin_panel_settings),
                 title: Text('Admin Panel'),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/admin');
+                  final auth = AuthService();
+                  if (auth.isAdmin) {
+                    Navigator.pushNamed(context, '/admin');
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoginPage(goToAdmin: true),
+                      ),
+                    );
+                  }
                 },
               ),
             ],
