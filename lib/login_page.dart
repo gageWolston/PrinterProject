@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
         if (widget.goToAdmin && auth.isAdmin) {
           Navigator.pushReplacementNamed(context, '/admin');
         } else if (widget.fromCheckout && Navigator.canPop(context)) {
-          Navigator.pop(context);
+          Navigator.pop(context, true);
         } else {
           Navigator.pushReplacement(
             context,
@@ -67,7 +67,12 @@ class _LoginPageState extends State<LoginPage> {
 
     // If coming from checkout → go back
     if (!isRegisterMode && widget.fromCheckout) {
-      Navigator.pop(context);
+      Navigator.pop(context, true);
+      return;
+    }
+
+    if (!isRegisterMode && widget.goToAdmin) {
+      Navigator.pushReplacementNamed(context, '/admin');
       return;
     }
 

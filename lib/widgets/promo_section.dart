@@ -1,102 +1,108 @@
 import 'package:flutter/material.dart';
 
+import '../models/promo.dart';
+import '../promo_detail_page.dart';
+import '../theme.dart';
+
 class PromoSection extends StatelessWidget {
-  final List<PromoItem> promos = [
+  final List<PromoItem> promos = const [
     PromoItem(
       title: 'Top Seller',
       description: 'The best-selling printer this month!',
-      color: Colors.blue,
-      clickable: true,
+      color: AppPalette.primary,
+      highlights: [
+        'Curated recommendations based on real orders',
+        'Fast delivery included with purchase',
+        'Extended warranty pricing unlocked',
+      ],
     ),
     PromoItem(
       title: '10% OFF Coupon',
       description: 'Save on your next purchase!',
-      color: Colors.green,
-      clickable: true,
+      color: AppPalette.accent,
+      highlights: [
+        'Automatic checkout application',
+        'Works with bundles and supplies',
+        'Limited time seasonal savings',
+      ],
     ),
     PromoItem(
       title: 'New Arrival',
       description: 'Check out our latest model!',
-      color: Colors.orange,
-      clickable: false, // 👈 not clickable
+      color: AppPalette.secondary,
+      highlights: [
+        'Performance tuned for photo printing',
+        'Energy efficient, low-noise hardware',
+        'Trade-in credits available',
+      ],
     ),
     PromoItem(
       title: 'Holiday Sale',
       description: 'Huge discounts on all models!',
-      color: Colors.red,
-      clickable: true,
+      color: Colors.teal,
+      highlights: [
+        'Doorbuster pricing on top printers',
+        'Bonus ink bundle while supplies last',
+        'Extended return window for gifts',
+      ],
     ),
   ];
 
-  PromoSection({super.key});
+  const PromoSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final textTheme = Theme.of(context).textTheme;
+    return SizedBox(
       height: 160,
-      margin: EdgeInsets.only(top: 10),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         itemCount: promos.length,
         itemBuilder: (context, index) {
           final promo = promos[index];
           final card = Container(
             width: 250,
-            margin: EdgeInsets.only(right: 12),
+            margin: const EdgeInsets.only(right: 12, top: 10, bottom: 6),
             decoration: BoxDecoration(
               color: promo.color,
               borderRadius: BorderRadius.circular(16),
             ),
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   promo.title,
-                  style: TextStyle(
+                  style: textTheme.titleMedium?.copyWith(
                     color: Colors.white,
-                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   promo.description,
-                  style: TextStyle(color: Colors.white70),
+                  style: textTheme.bodyMedium?.copyWith(color: Colors.white70),
                 ),
               ],
             ),
           );
 
-          // Wrap clickable promos in GestureDetector
-          return promo.clickable
-              ? GestureDetector(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${promo.title} clicked')),
-                    );
-                  },
-                  child: card,
-                )
-              : card;
+          return InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => PromoDetailPage(promo: promo),
+                ),
+              );
+            },
+            child: card,
+          );
         },
       ),
     );
   }
-}
-
-class PromoItem {
-  final String title;
-  final String description;
-  final Color color;
-  final bool clickable;
-
-  PromoItem({
-    required this.title,
-    required this.description,
-    required this.color,
-    required this.clickable,
-  });
 }
