@@ -37,7 +37,7 @@ class PrinterCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Hero(
-                tag: printer.name,
+                tag: printer.id,
                 child: Image.asset(
                   printer.image,
                   width: 90,

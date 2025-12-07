@@ -5,8 +5,9 @@ import 'services/auth_service.dart';
 import 'widgets/animated_button.dart';
 
 class LoginPage extends StatefulWidget {
-  final bool fromCheckout;  
-  const LoginPage({super.key, this.fromCheckout = false});
+  final bool fromCheckout;
+  final bool goToAdmin;
+  const LoginPage({super.key, this.fromCheckout = false, this.goToAdmin = false});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -24,7 +25,11 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (auth.isLoggedIn()) {
-        if (widget.fromCheckout && Navigator.canPop(context)) {
+        if (widget.goToAdmin && !auth.isAdmin) return;
+
+        if (widget.goToAdmin && auth.isAdmin) {
+          Navigator.pushReplacementNamed(context, '/admin');
+        } else if (widget.fromCheckout && Navigator.canPop(context)) {
           Navigator.pop(context);
         } else {
           Navigator.pushReplacement(
@@ -47,7 +52,11 @@ class _LoginPageState extends State<LoginPage> {
     if (isRegisterMode) {
       success = auth.registerUser(username, password);
     } else {
-      success = auth.login(username, password);
+      if (widget.goToAdmin && username != 'Admin') {
+        success = false;
+      } else {
+        success = auth.login(username, password);
+      }
     }
 
     if (!success) {
@@ -59,6 +68,11 @@ class _LoginPageState extends State<LoginPage> {
     // If coming from checkout → go back
     if (!isRegisterMode && widget.fromCheckout) {
       Navigator.pop(context);
+      return;
+    }
+
+    if (!isRegisterMode && widget.goToAdmin) {
+      Navigator.pushReplacementNamed(context, '/admin');
       return;
     }
 
@@ -105,16 +119,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  isRegisterMode = !isRegisterMode;
-                });
-              },
-              child: Text(isRegisterMode
-                  ? "Already have an account? Login"
-                  : "Need an account? Register"),
-            ),
+            if (!widget.goToAdmin)
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    isRegisterMode = !isRegisterMode;
+                  });
+                },
+                child: Text(isRegisterMode
+                    ? "Already have an account? Login"
+                    : "Need an account? Register"),
+              ),
           ],
         ),
       ),

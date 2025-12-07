@@ -21,7 +21,7 @@ class PrinterDetailPage extends StatelessWidget {
           children: [
             Center(
               child: Hero(
-                tag: printer.name,
+                tag: printer.id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
