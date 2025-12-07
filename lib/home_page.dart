@@ -5,6 +5,7 @@ import 'widgets/app_drawer.dart';
 import 'widgets/filters.dart';
 import 'widgets/printer_card.dart';
 import 'widgets/promo_section.dart';
+import 'printer_detail_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -22,6 +23,13 @@ class _MyHomePageState extends State<MyHomePage> {
       rating: 4.8,
       price: 199.99,
       image: 'images/printers/canon_inkjet.png',
+      description:
+          'A fast and reliable laser printer ideal for home offices and small teams.',
+      highlights: [
+        '26 ppm black printing',
+        'Automatic duplex printing',
+        'Built-in Wi‑Fi and mobile printing',
+      ],
     ),
     Printer(
       name: 'Canon Office Inkjet',
@@ -30,6 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
       rating: 4.5,
       price: 129.99,
       image: 'images/printers/canon_inkjet.png',
+      description: 'Vibrant color output with economical cartridges for everyday use.',
+      highlights: [
+        'Borderless photo printing',
+        'Hybrid ink system for crisp text',
+        'Voice-activated printing support',
+      ],
     ),
     Printer(
       name: 'Epson Dot Matrix',
@@ -38,6 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
       rating: 4.9,
       price: 399.99,
       image: 'images/printers/epson_ecotank.png',
+      description: 'Industrial-grade dot matrix printer built for continuous forms.',
+      highlights: [
+        'High-impact 9‑pin printing',
+        'Multi-part form support',
+        'Rugged build for warehouses',
+      ],
     ),
   ];
 
@@ -129,9 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 return PrinterCard(
                   printer: p,
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Selected ${p.name}')),
-                    );
+                    Navigator.of(context).push(_slideRoute(
+                      PrinterDetailPage(printer: p),
+                    ));
                   },
                 );
               },
@@ -141,4 +161,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+PageRouteBuilder _slideRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeOutCubic;
+
+      final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      final offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: FadeTransition(opacity: animation, child: child),
+      );
+    },
+  );
 }

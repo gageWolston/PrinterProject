@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'services/cart_service.dart';
 import 'services/auth_service.dart';
 import 'login_page.dart';
+import 'checkout_page.dart';
+import 'widgets/animated_button.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -40,28 +42,47 @@ class CartPage extends StatelessWidget {
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
-          ElevatedButton(
+          AnimatedActionButton(
             child: const Text('Checkout'),
             onPressed: () {
               if (!auth.isLoggedIn()) {
-                // Not logged in → go to login page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (_) => LoginPage(fromCheckout: true)),
+                  _slideRoute(LoginPage(fromCheckout: true)),
                 );
               } else {
-                // Logged in → finish checkout
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Checkout complete!')),
-                );
-                cart.clearCart();
+                Navigator.push(context, _slideRoute(const CheckoutPage()));
               }
             },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
           ),
           const SizedBox(height: 20),
         ],
       ),
     );
   }
+}
+
+PageRouteBuilder _slideRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeOutCubic;
+
+      final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      final offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: FadeTransition(opacity: animation, child: child),
+      );
+    },
+  );
 }
