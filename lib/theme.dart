@@ -17,7 +17,7 @@ class AppTheme {
       primary: AppPalette.primary,
       secondary: AppPalette.secondary,
       tertiary: AppPalette.accent,
-      background: AppPalette.surface,
+      surface: AppPalette.surface,
     );
 
     return ThemeData(

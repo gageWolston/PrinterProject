@@ -224,7 +224,7 @@ class _FeaturedPrinterCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: colorScheme.primary.withOpacity(0.1)),
+          border: Border.all(color: colorScheme.primary.withAlpha((0.1 * 255).round())),
           boxShadow: const [
             BoxShadow(
               color: Colors.black12,
@@ -241,7 +241,7 @@ class _FeaturedPrinterCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: colorScheme.primary.withOpacity(0.12),
+                    color: colorScheme.primary.withAlpha((0.12 * 255).round()),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(

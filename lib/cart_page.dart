@@ -43,19 +43,18 @@ class CartPage extends StatelessWidget {
             ),
           ),
           AnimatedActionButton(
-            child: const Text('Checkout'),
             onPressed: () async {
               if (!auth.isLoggedIn()) {
                 final loggedIn = await Navigator.push<bool>(
                   context,
-                  _slideRoute(LoginPage(fromCheckout: true)),
+                  _slideRoute<bool>(LoginPage(fromCheckout: true)),
                 );
 
                 if (loggedIn == true && context.mounted) {
-                  Navigator.push(context, _slideRoute(const CheckoutPage()));
+                  Navigator.push(context, _slideRoute<void>(const CheckoutPage()));
                 }
               } else {
-                Navigator.push(context, _slideRoute(const CheckoutPage()));
+                Navigator.push(context, _slideRoute<void>(const CheckoutPage()));
               }
             },
             style: ElevatedButton.styleFrom(
@@ -64,6 +63,7 @@ class CartPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
+            child: const Text('Checkout'),
           ),
           const SizedBox(height: 20),
         ],
@@ -72,7 +72,7 @@ class CartPage extends StatelessWidget {
   }
 }
 
-Route<T?> _slideRoute<T>(Widget page) {
+PageRouteBuilder<T> _slideRoute<T>(Widget page) {
   return PageRouteBuilder<T>(
     transitionDuration: const Duration(milliseconds: 220),
     reverseTransitionDuration: const Duration(milliseconds: 200),

@@ -21,7 +21,7 @@ class OrderService extends ChangeNotifier {
     String? couponCode,
   }) {
     if (items.isEmpty) return;
-    final subtotal = items.fold(0, (sum, item) => sum + item.price);
+    final subtotal = items.fold<double>(0.0, (sum, item) => sum + item.price);
     final total = (subtotal - discount).clamp(0, double.infinity).toDouble();
     final order = OrderRecord(
       user: user,

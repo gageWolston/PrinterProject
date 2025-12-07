@@ -118,12 +118,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: Text(isRegisterMode ? "Register" : "Login"),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
             ),
             if (!widget.goToAdmin)
               TextButton(

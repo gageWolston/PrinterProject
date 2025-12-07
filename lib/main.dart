@@ -22,15 +22,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => PrinterService()),
         ChangeNotifierProvider(create: (_) => OrderService()),
       ],
-      child: MyApp(isLoggedIn: isLoggedIn),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool isLoggedIn;
-
-  const MyApp({super.key, required this.isLoggedIn});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

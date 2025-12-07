@@ -36,7 +36,7 @@ class PrinterDetailPage extends StatelessWidget {
                       padding:
                           const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                        color: Theme.of(context).colorScheme.primary.withAlpha((0.1 * 255).round()),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(printer.type),
@@ -82,15 +82,12 @@ class PrinterDetailPage extends StatelessWidget {
                   backgroundColor:
                       Theme.of(context).colorScheme.secondaryContainer,
                 ),
-                ...printer.features
-                    .map(
-                      (feature) => Chip(
-                        label: Text(feature),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondaryContainer,
-                      ),
-                    )
-                    .toList(),
+                ...printer.features.map(
+                  (feature) => Chip(
+                    label: Text(feature),
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
