@@ -76,6 +76,11 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
+    if (!isRegisterMode && widget.goToAdmin) {
+      Navigator.pushReplacementNamed(context, '/admin');
+      return;
+    }
+
     // Normal login → go to home
     if (!isRegisterMode) {
       Navigator.pushReplacement(
