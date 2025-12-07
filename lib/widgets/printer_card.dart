@@ -32,7 +32,8 @@ class PrinterCard extends StatelessWidget {
             )
           ],
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -71,9 +72,31 @@ class PrinterCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.star, color: Colors.amber, size: 16),
-                      const SizedBox(width: 4),
-                      Text('${printer.rating}'),
+                      Text(
+                        printer.name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        printer.brand,
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        printer.type,
+                        style: TextStyle(color: Colors.grey.shade700),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.star, color: Colors.amber, size: 16),
+                          const SizedBox(width: 4),
+                          Text('${printer.rating}'),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -136,15 +159,42 @@ class PrinterCard extends StatelessWidget {
                   color: Theme.of(context).colorScheme.error,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Text(
-                  'SALE',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                ...printer.features
+                    .map(
+                      (feature) => Chip(
+                        label: Text(feature),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        padding: EdgeInsets.zero,
+                      ),
+                    )
+                    .toList(),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Consumer<CartService>(
+              builder: (context, cart, child) {
+                return AnimatedActionButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
-                ),
-              ),
+                  onPressed: () {
+                    cart.addItem(printer);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${printer.name} added to cart'),
+                      ),
+                    );
+                  },
+                  child: const Text("Add to Cart"),
+                );
+              },
+            )
           ],
         ),
       ),
