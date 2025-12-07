@@ -56,7 +56,6 @@ class PrinterService extends ChangeNotifier {
   List<Printer> get _defaultPrinters => [
         Printer(
           name: 'HP LaserJet Pro',
-          brand: 'HP',
           type: 'Laser',
           onSale: true,
           rating: 4.8,
@@ -68,18 +67,10 @@ class PrinterService extends ChangeNotifier {
             '26 ppm black printing',
             'Automatic duplex printing',
             'Built-in Wi‑Fi and mobile printing',
-            'Secure PIN release',
           ],
-          features: {
-            'Black & White',
-            'Copier',
-            'Scanner',
-            'Wireless',
-          },
         ),
         Printer(
           name: 'Canon Office Inkjet',
-          brand: 'Canon',
           type: 'Inkjet',
           onSale: false,
           rating: 4.5,
@@ -87,20 +78,13 @@ class PrinterService extends ChangeNotifier {
           image: 'images/printers/canon_inkjet.png',
           description: 'Vibrant color output with economical cartridges for everyday use.',
           highlights: [
+            'Borderless photo printing',
             'Hybrid ink system for crisp text',
             'Voice-activated printing support',
-            'Auto document feeder',
           ],
-          features: {
-            'Color',
-            'Scanner',
-            'Fax',
-            'Wireless',
-          },
         ),
         Printer(
           name: 'Epson Dot Matrix',
-          brand: 'Epson',
           type: 'Dot Matrix',
           onSale: true,
           rating: 4.9,
@@ -112,11 +96,6 @@ class PrinterService extends ChangeNotifier {
             'Multi-part form support',
             'Rugged build for warehouses',
           ],
-          features: {
-            'Black & White',
-            'Copier',
-            'Wired',
-          },
         ),
       ];
 }

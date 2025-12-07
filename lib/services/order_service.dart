@@ -27,8 +27,6 @@ class OrderService extends ChangeNotifier {
               'name': p.name,
               'price': p.price,
               'type': p.type,
-              'brand': p.brand,
-              'features': p.features.toList(),
             },
           )
           .toList(),

@@ -31,7 +31,7 @@ class PromoSection extends StatelessWidget {
       description: 'Check out our latest model!',
       color: AppPalette.secondary,
       highlights: [
-        'Performance tuned for clear documents',
+        'Performance tuned for photo printing',
         'Energy efficient, low-noise hardware',
         'Trade-in credits available',
       ],

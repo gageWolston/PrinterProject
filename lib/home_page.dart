@@ -8,6 +8,7 @@ import 'services/printer_service.dart';
 import 'widgets/app_drawer.dart';
 import 'widgets/filters.dart';
 import 'widgets/printer_card.dart';
+import 'widgets/promo_section.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -26,8 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Printer> _filteredPrinters(List<Printer> printers) {
-    if (activeFilters.isEmpty ||
-        (activeFilters.contains('All Printers') && activeFilters.length == 1)) {
+    if (activeFilters.isEmpty || activeFilters.contains('All Printers')) {
       return printers;
     }
 
@@ -42,49 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
         match = match && typeFilters.contains(printer.type);
       }
 
-      final featureFilters = activeFilters.where(
-        (f) =>
-            f == 'Color' ||
-            f == 'Black & White' ||
-            f == 'Fax' ||
-            f == 'Copier' ||
-            f == 'Scanner',
-      );
-
-      if (featureFilters.isNotEmpty) {
-        match =
-            match && featureFilters.every((feature) => printer.features.contains(feature));
-      }
-
-      final brandFilters = activeFilters
-          .where((f) => f.startsWith('Brand: '))
-          .map((f) => f.replaceFirst('Brand: ', ''));
-
-      if (brandFilters.isNotEmpty) {
-        match = match && brandFilters.contains(printer.brand);
-      }
-
-      final priceFilters = activeFilters.where(
-        (f) =>
-            f == 'Budget (<\$200)' ||
-            f == 'Midrange (\$200-\$400)' ||
-            f == 'Premium (\$400+)',
-      );
-
-      if (priceFilters.isNotEmpty) {
-        final priceMatch = priceFilters.any((filter) {
-          if (filter == 'Budget (<\$200)') return printer.price < 200;
-          if (filter == 'Midrange (\$200-\$400)') {
-            return printer.price >= 200 && printer.price <= 400;
-          }
-          if (filter == 'Premium (\$400+)') return printer.price > 400;
-          return true;
-        });
-        match = match && priceMatch;
-      }
-
       if (activeFilters.contains('On Sale')) {
         match = match && printer.onSale;
+      }
+
+      if (activeFilters.contains('Top Rated')) {
+        match = match && printer.rating >= 4.7;
       }
 
       return match;
@@ -117,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const PromoSection(),
             FilterList(onFiltersChanged: applyFilters),
 
             // Example sections below — you can fill these with product grids/lists later
@@ -156,8 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Route<T?> _slideRoute<T>(Widget page) {
-  return PageRouteBuilder<T>(
+PageRouteBuilder _slideRoute(Widget page) {
+  return PageRouteBuilder(
     transitionDuration: const Duration(milliseconds: 220),
     reverseTransitionDuration: const Duration(milliseconds: 200),
     pageBuilder: (context, animation, secondaryAnimation) => page,
