@@ -15,6 +15,8 @@ void main() async {
   await Hive.openBox('printers');
   await Hive.openBox('orders');
 
+  final bool isLoggedIn = Hive.box('users').get('isLoggedIn', defaultValue: false) as bool;
+
   runApp(
     MultiProvider(
       providers: [
@@ -22,13 +24,15 @@ void main() async {
         ChangeNotifierProvider(create: (_) => PrinterService()),
         ChangeNotifierProvider(create: (_) => OrderService()),
       ],
-      child: const MyApp(),
+      child: MyApp(isLoggedIn: isLoggedIn),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {

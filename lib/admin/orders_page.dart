@@ -44,45 +44,16 @@ class OrdersPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Subtotal'),
-                                Text('\$${order.subtotal.toStringAsFixed(2)}'),
-                              ],
+                            const Text(
+                              'Total',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            if (order.discount > 0)
-                              Padding(
-                                padding: const EdgeInsets.only(top: 6),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Coupon${order.couponCode != null ? ' (${order.couponCode})' : ''}',
-                                      style: const TextStyle(color: Colors.green),
-                                    ),
-                                    Text(
-                                      '-\$${order.discount.toStringAsFixed(2)}',
-                                      style: const TextStyle(color: Colors.green),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            const SizedBox(height: 6),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Total',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  '\$${order.total.toStringAsFixed(2)}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                            Text(
+                              '\$${order.total.toStringAsFixed(2)}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

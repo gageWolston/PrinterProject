@@ -9,7 +9,6 @@ class Printer {
   final String image; // asset path
   final String description;
   final List<String> highlights;
-  final Set<String> features;
 
   Printer({
     String? id,
@@ -22,13 +21,11 @@ class Printer {
     required this.image,
     required this.description,
     required this.highlights,
-    required this.features,
   }) : id = id ?? DateTime.now().microsecondsSinceEpoch.toString();
 
   Printer copyWith({
     String? id,
     String? name,
-    String? brand,
     String? type,
     bool? onSale,
     double? rating,
@@ -36,12 +33,10 @@ class Printer {
     String? image,
     String? description,
     List<String>? highlights,
-    Set<String>? features,
   }) {
     return Printer(
       id: id ?? this.id,
       name: name ?? this.name,
-      brand: brand ?? this.brand,
       type: type ?? this.type,
       onSale: onSale ?? this.onSale,
       rating: rating ?? this.rating,
@@ -49,7 +44,6 @@ class Printer {
       image: image ?? this.image,
       description: description ?? this.description,
       highlights: highlights ?? this.highlights,
-      features: features ?? this.features,
     );
   }
 
@@ -57,7 +51,6 @@ class Printer {
     return {
       'id': id,
       'name': name,
-      'brand': brand,
       'type': type,
       'onSale': onSale,
       'rating': rating,
@@ -65,7 +58,6 @@ class Printer {
       'image': image,
       'description': description,
       'highlights': highlights,
-      'features': features.toList(),
     };
   }
 
@@ -73,7 +65,6 @@ class Printer {
     return Printer(
       id: map['id'] as String?,
       name: map['name'] as String,
-      brand: (map['brand'] as String?) ?? 'Unknown',
       type: map['type'] as String,
       onSale: map['onSale'] as bool,
       rating: (map['rating'] as num).toDouble(),
@@ -81,8 +72,6 @@ class Printer {
       image: map['image'] as String,
       description: map['description'] as String,
       highlights: List<String>.from(map['highlights'] as List<dynamic>),
-      features: Set<String>.from((map['features'] as List<dynamic>? ?? <dynamic>[])
-          .map((f) => f.toString())),
     );
   }
 }

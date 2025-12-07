@@ -40,17 +40,7 @@ class _PrinterManagementPageState extends State<PrinterManagementPage> {
                       child: Text(printer.name.isNotEmpty ? printer.name[0] : '?'),
                     ),
                     title: Text(printer.name),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${printer.brand} • ${printer.type} • \$${printer.price.toStringAsFixed(2)}'),
-                        const SizedBox(height: 2),
-                        Text(
-                          printer.features.join(', '),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
+                    subtitle: Text('${printer.type} • \$${printer.price.toStringAsFixed(2)}'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -120,13 +110,11 @@ class _PrinterEditorDialog extends StatefulWidget {
 
 class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
   late final TextEditingController nameController;
-  late final TextEditingController brandController;
   late final TextEditingController typeController;
   late final TextEditingController priceController;
   late final TextEditingController ratingController;
   late final TextEditingController descriptionController;
   late final TextEditingController highlightsController;
-  late final TextEditingController featuresController;
   bool onSale = false;
 
   @override
@@ -134,7 +122,6 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
     super.initState();
     final p = widget.printer;
     nameController = TextEditingController(text: p?.name ?? '');
-    brandController = TextEditingController(text: p?.brand ?? '');
     typeController = TextEditingController(text: p?.type ?? '');
     priceController = TextEditingController(
       text: p != null ? p.price.toStringAsFixed(2) : '',
@@ -144,7 +131,6 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
     );
     descriptionController = TextEditingController(text: p?.description ?? '');
     highlightsController = TextEditingController(text: p?.highlights.join(', ') ?? '');
-    featuresController = TextEditingController(text: p?.features.join(', ') ?? '');
     onSale = p?.onSale ?? false;
   }
 
@@ -159,10 +145,6 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
             TextField(
               controller: nameController,
               decoration: const InputDecoration(labelText: 'Name'),
-            ),
-            TextField(
-              controller: brandController,
-              decoration: const InputDecoration(labelText: 'Brand'),
             ),
             TextField(
               controller: typeController,
@@ -195,12 +177,6 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
                 labelText: 'Highlights (comma separated)',
               ),
             ),
-            TextField(
-              controller: featuresController,
-              decoration: const InputDecoration(
-                labelText: 'Features (Color, Fax, Scanner, etc.)',
-              ),
-            ),
           ],
         ),
       ),
@@ -212,7 +188,6 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
         AnimatedActionButton(
           onPressed: () {
             final name = nameController.text.trim();
-            final brand = brandController.text.trim();
             final type = typeController.text.trim();
             final price = double.tryParse(priceController.text) ?? 0;
             final rating = double.tryParse(ratingController.text) ?? 0;
@@ -221,17 +196,11 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
                 .map((e) => e.trim())
                 .where((e) => e.isNotEmpty)
                 .toList();
-            final features = featuresController.text
-                .split(',')
-                .map((e) => e.trim())
-                .where((e) => e.isNotEmpty)
-                .toSet();
 
-            if (name.isEmpty || type.isEmpty || brand.isEmpty) return;
+            if (name.isEmpty || type.isEmpty) return;
 
             final printer = (widget.printer ?? Printer(
               name: name,
-              brand: brand,
               type: type,
               onSale: onSale,
               rating: rating,
@@ -239,18 +208,15 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
               image: 'images/printers/canon_inkjet.png',
               description: descriptionController.text.trim(),
               highlights: highlights,
-              features: features,
             ))
                 .copyWith(
               name: name,
-              brand: brand,
               type: type,
               price: price,
               rating: rating,
               onSale: onSale,
               description: descriptionController.text.trim(),
               highlights: highlights.isEmpty ? ['No highlights provided'] : highlights,
-              features: features.isEmpty ? {'Unspecified'} : features,
             );
 
             Navigator.pop(context, printer);

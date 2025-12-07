@@ -35,12 +35,42 @@ class PrinterCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Hero(
+                tag: printer.id,
+                child: Image.asset(
+                  printer.image,
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    printer.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    printer.brand,
+                    style: TextStyle(color: Colors.grey.shade600),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    printer.type,
+                    style: TextStyle(color: Colors.grey.shade700),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
                     children: [
                       Text(
                         printer.name,
@@ -69,52 +99,65 @@ class PrinterCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '\$${printer.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '\$${printer.price.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
                     ),
-                    if (printer.onSale) ...[
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.error,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'SALE',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                  ),
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 4,
+                    children: printer.features
+                        .map(
+                          (feature) => Chip(
+                            label: Text(feature),
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            padding: EdgeInsets.zero,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  const SizedBox(height: 8),
+                  Consumer<CartService>(
+                    builder: (context, cart, child) {
+                      return AnimatedActionButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                      ),
-                    ],
-                  ],
-                ),
-              ],
+                        onPressed: () {
+                          cart.addItem(printer);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('${printer.name} added to cart'),
+                            ),
+                          );
+                        },
+                        child: const Text("Add to Cart"),
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 6,
-              runSpacing: 4,
-              children: [
-                Chip(
-                  label: Text(printer.connectivity),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  padding: EdgeInsets.zero,
+            if (printer.onSale)
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.error,
+                  borderRadius: BorderRadius.circular(6),
                 ),
                 ...printer.features
                     .map(

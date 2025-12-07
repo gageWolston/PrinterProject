@@ -20,13 +20,7 @@ class FiltersListState extends State<FilterList> {
     'Scanner',
     'Laser',
     'Inkjet',
-    'Dot Matrix',
-    'Brand: HP',
-    'Brand: Canon',
-    'Brand: Epson',
-    'Budget (<\$200)',
-    'Midrange (\$200-\$400)',
-    'Premium (\$400+)'
+    'Dot Matrix'
   ];
 
   final Set<String> selectedFilters = {};
