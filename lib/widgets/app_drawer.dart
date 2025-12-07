@@ -38,13 +38,6 @@ class AppDrawer extends StatelessWidget{
                   Navigator.pop(context);
                 },
               ),
-              ListTile(//about section
-                leading: Icon(Icons.info),
-                title: Text('About'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
               ListTile( //admin panel
                 leading: Icon(Icons.admin_panel_settings),
                 title: Text('Admin Panel'),

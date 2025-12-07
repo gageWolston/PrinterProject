@@ -13,6 +13,11 @@ class FiltersListState extends State<FilterList> {
   final List<String> filters = [
     'All Printers',
     'On Sale',
+    'Color',
+    'Black & White',
+    'Fax',
+    'Copier',
+    'Scanner',
     'Laser',
     'Inkjet',
     'Dot Matrix'

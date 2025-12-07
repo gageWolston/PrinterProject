@@ -60,6 +60,11 @@ class PrinterCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
+                    printer.brand,
+                    style: TextStyle(color: Colors.grey.shade600),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
                     printer.type,
                     style: TextStyle(color: Colors.grey.shade700),
                   ),
@@ -79,6 +84,20 @@ class PrinterCard extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 4,
+                    children: printer.features
+                        .map(
+                          (feature) => Chip(
+                            label: Text(feature),
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            padding: EdgeInsets.zero,
+                          ),
+                        )
+                        .toList(),
                   ),
                   const SizedBox(height: 8),
                   Consumer<CartService>(
