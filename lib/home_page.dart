@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PromoSection(),
+            const PromoSection(),
             FilterList(onFiltersChanged: applyFilters),
 
             // Example sections below — you can fill these with product grids/lists later
