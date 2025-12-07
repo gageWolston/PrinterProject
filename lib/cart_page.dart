@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'services/cart_service.dart';
 import 'services/auth_service.dart';
 import 'login_page.dart';
+import 'checkout_page.dart';
+import 'widgets/animated_button.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -40,28 +42,58 @@ class CartPage extends StatelessWidget {
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
-          ElevatedButton(
+          AnimatedActionButton(
             child: const Text('Checkout'),
-            onPressed: () {
+            onPressed: () async {
               if (!auth.isLoggedIn()) {
-                // Not logged in → go to login page
-                Navigator.push(
+                final loggedIn = await Navigator.push<bool>(
                   context,
-                  MaterialPageRoute(
-                      builder: (_) => LoginPage(fromCheckout: true)),
+                  _slideRoute(LoginPage(fromCheckout: true)),
                 );
+
+                if (loggedIn == true && context.mounted) {
+                  Navigator.push(context, _slideRoute(const CheckoutPage()));
+                }
               } else {
-                // Logged in → finish checkout
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Checkout complete!')),
-                );
-                cart.clearCart();
+                Navigator.push(context, _slideRoute(const CheckoutPage()));
               }
             },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
           ),
           const SizedBox(height: 20),
         ],
       ),
     );
   }
+}
+
+Route<T?> _slideRoute<T>(Widget page) {
+  return PageRouteBuilder<T>(
+    transitionDuration: const Duration(milliseconds: 220),
+    reverseTransitionDuration: const Duration(milliseconds: 200),
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutQuad,
+        reverseCurve: Curves.easeInQuad,
+      );
+
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.04),
+            end: Offset.zero,
+          ).animate(curved),
+          child: child,
+        ),
+      );
+    },
+  );
 }
