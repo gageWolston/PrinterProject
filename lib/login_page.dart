@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart';
+
+import 'home_page.dart';
+import 'services/auth_service.dart';
+import 'widgets/animated_button.dart';
 
 class LoginPage extends StatefulWidget {
   final bool fromCheckout;  
@@ -15,6 +18,23 @@ class _LoginPageState extends State<LoginPage> {
   final auth = AuthService();
 
   bool isRegisterMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (auth.isLoggedIn()) {
+        if (widget.fromCheckout && Navigator.canPop(context)) {
+          Navigator.pop(context);
+        } else {
+          Navigator.pushReplacement(
+            context,
+            _slideRoute(const MyHomePage()),
+          );
+        }
+      }
+    });
+  }
 
   void submit() {
     final username = usernameController.text.trim();
@@ -44,7 +64,10 @@ class _LoginPageState extends State<LoginPage> {
 
     // Normal login → go to home
     if (!isRegisterMode) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacement(
+        context,
+        _slideRoute(const MyHomePage()),
+      );
       return;
     }
 
@@ -72,9 +95,15 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            AnimatedActionButton(
               onPressed: submit,
               child: Text(isRegisterMode ? "Register" : "Login"),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -91,4 +120,23 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+PageRouteBuilder _slideRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeOutCubic;
+
+      final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      final offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: FadeTransition(opacity: animation, child: child),
+      );
+    },
+  );
 }

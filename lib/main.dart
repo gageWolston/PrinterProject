@@ -5,24 +5,29 @@ import 'package:provider/provider.dart';
 import 'home_page.dart';
 import 'login_page.dart';
 import 'services/cart_service.dart';
+import 'services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('users'); // local db for username + password
 
+  final auth = AuthService();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CartService()),
       ],
-      child: const MyApp(),
+      child: MyApp(isLoggedIn: auth.isLoggedIn()),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme:
             ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 5, 64, 226)),
       ),
-      home: const MyHomePage(),
+      home: isLoggedIn ? const MyHomePage() : const LoginPage(),
       routes: {
         '/home': (_) => const MyHomePage(),
         '/admin': (_) => const UserListPage(),

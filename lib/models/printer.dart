@@ -5,6 +5,8 @@ class Printer {
   final double rating;
   final double price;
   final String image; // asset path
+  final String description;
+  final List<String> highlights;
 
   Printer({
     required this.name,
@@ -13,5 +15,7 @@ class Printer {
     required this.rating,
     required this.price,
     required this.image,
+    required this.description,
+    required this.highlights,
   });
 }
