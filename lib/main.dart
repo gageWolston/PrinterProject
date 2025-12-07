@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme:
             ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 5, 64, 226)),
       ),
-      home: const LoginPage(),
+      home: const MyHomePage(),
       routes: {
         '/home': (_) => const MyHomePage(),
         '/admin': (_) => const UserListPage(),
