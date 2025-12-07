@@ -3,11 +3,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'admin/admin_dashboard_page.dart';
 import 'home_page.dart';
-import 'login_page.dart';
 import 'services/cart_service.dart';
-import 'services/auth_service.dart';
 import 'services/order_service.dart';
 import 'services/printer_service.dart';
+import 'theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +14,6 @@ void main() async {
   await Hive.openBox('users'); // local db for username + password
   await Hive.openBox('printers');
   await Hive.openBox('orders');
-
-  final auth = AuthService();
 
   runApp(
     MultiProvider(
@@ -39,11 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Printer app',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 5, 64, 226)),
-      ),
-      home: isLoggedIn ? const MyHomePage() : const LoginPage(),
+      theme: AppTheme.light,
+      home: const MyHomePage(),
       routes: {
         '/home': (_) => const MyHomePage(),
         '/admin': (_) => const AdminDashboardPage(),

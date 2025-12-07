@@ -122,18 +122,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
 PageRouteBuilder _slideRoute(Widget page) {
   return PageRouteBuilder(
+    transitionDuration: const Duration(milliseconds: 220),
+    reverseTransitionDuration: const Duration(milliseconds: 200),
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(1.0, 0.0);
-      const end = Offset.zero;
-      const curve = Curves.easeOutCubic;
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutQuad,
+        reverseCurve: Curves.easeInQuad,
+      );
 
-      final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      final offsetAnimation = animation.drive(tween);
-
-      return SlideTransition(
-        position: offsetAnimation,
-        child: FadeTransition(opacity: animation, child: child),
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.04),
+            end: Offset.zero,
+          ).animate(curved),
+          child: child,
+        ),
       );
     },
   );
