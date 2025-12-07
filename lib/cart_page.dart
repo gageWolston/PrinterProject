@@ -72,8 +72,8 @@ class CartPage extends StatelessWidget {
   }
 }
 
-PageRouteBuilder _slideRoute(Widget page) {
-  return PageRouteBuilder(
+PageRouteBuilder<T> _slideRoute<T>(Widget page) {
+  return PageRouteBuilder<T>(
     transitionDuration: const Duration(milliseconds: 220),
     reverseTransitionDuration: const Duration(milliseconds: 200),
     pageBuilder: (context, animation, secondaryAnimation) => page,

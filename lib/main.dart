@@ -15,6 +15,8 @@ void main() async {
   await Hive.openBox('printers');
   await Hive.openBox('orders');
 
+  final bool isLoggedIn = Hive.box('users').get('isLoggedIn', defaultValue: false) as bool;
+
   runApp(
     MultiProvider(
       providers: [
@@ -22,7 +24,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => PrinterService()),
         ChangeNotifierProvider(create: (_) => OrderService()),
       ],
-      child: MyApp(isLoggedIn: auth.isLoggedIn()),
+      child: MyApp(isLoggedIn: isLoggedIn),
     ),
   );
 }
