@@ -116,13 +116,13 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             AnimatedActionButton(
               onPressed: submit,
-              child: Text(isRegisterMode ? "Register" : "Login"),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
+              child: Text(isRegisterMode ? "Register" : "Login"),
             ),
             if (!widget.goToAdmin)
               TextButton(

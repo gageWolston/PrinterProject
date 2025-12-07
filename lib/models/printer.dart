@@ -13,7 +13,7 @@ class Printer {
   Printer({
     String? id,
     required this.name,
-    required this.brand,
+    String? brand,
     required this.type,
     required this.onSale,
     required this.rating,
@@ -21,11 +21,16 @@ class Printer {
     required this.image,
     required this.description,
     required this.highlights,
-  }) : id = id ?? DateTime.now().microsecondsSinceEpoch.toString();
+  }) : id = id ?? DateTime.now().microsecondsSinceEpoch.toString(),
+       brand = brand ?? 'Unknown';
+
+  // Provide a convenience getter to match older API expecting `features`.
+  List<String> get features => highlights;
 
   Printer copyWith({
     String? id,
     String? name,
+    String? brand,
     String? type,
     bool? onSale,
     double? rating,
@@ -37,6 +42,7 @@ class Printer {
     return Printer(
       id: id ?? this.id,
       name: name ?? this.name,
+      brand: brand ?? this.brand,
       type: type ?? this.type,
       onSale: onSale ?? this.onSale,
       rating: rating ?? this.rating,
@@ -51,6 +57,7 @@ class Printer {
     return {
       'id': id,
       'name': name,
+      'brand': brand,
       'type': type,
       'onSale': onSale,
       'rating': rating,
@@ -65,6 +72,7 @@ class Printer {
     return Printer(
       id: map['id'] as String?,
       name: map['name'] as String,
+      brand: map['brand'] as String? ?? 'Unknown',
       type: map['type'] as String,
       onSale: map['onSale'] as bool,
       rating: (map['rating'] as num).toDouble(),

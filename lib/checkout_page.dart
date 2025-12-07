@@ -122,6 +122,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     onPressed: _isProcessing
                         ? null
                         : () => _startCheckout(cart, orders),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                     child: _isProcessing
                         ? const SizedBox(
                             height: 22,
@@ -129,12 +135,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             child: CircularProgressIndicator(strokeWidth: 3),
                           )
                         : const Text('Place Order'),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
                   ),
                 ],
               ),

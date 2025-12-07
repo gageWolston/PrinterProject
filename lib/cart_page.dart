@@ -43,7 +43,6 @@ class CartPage extends StatelessWidget {
             ),
           ),
           AnimatedActionButton(
-            child: const Text('Checkout'),
             onPressed: () async {
               if (!auth.isLoggedIn()) {
                 final loggedIn = await Navigator.push<bool>(
@@ -64,6 +63,7 @@ class CartPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
+            child: const Text('Checkout'),
           ),
           const SizedBox(height: 20),
         ],
