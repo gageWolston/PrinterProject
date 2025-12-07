@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../login_page.dart';
+import '../services/auth_service.dart';
+
 class AppDrawer extends StatelessWidget{
   const AppDrawer({super.key});
 
@@ -47,7 +50,17 @@ class AppDrawer extends StatelessWidget{
                 title: Text('Admin Panel'),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/admin');
+                  final auth = AuthService();
+                  if (auth.isAdmin) {
+                    Navigator.pushNamed(context, '/admin');
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoginPage(goToAdmin: true),
+                      ),
+                    );
+                  }
                 },
               ),
             ],

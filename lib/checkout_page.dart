@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'services/cart_service.dart';
+import 'services/auth_service.dart';
+import 'services/order_service.dart';
 import 'widgets/animated_button.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -24,7 +26,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     super.dispose();
   }
 
-  void _startCheckout(CartService cart) {
+  void _startCheckout(CartService cart, OrderService orders) {
     setState(() {
       _isProcessing = true;
       _isComplete = false;
@@ -37,6 +39,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         _isProcessing = false;
         _isComplete = true;
       });
+      orders.recordOrder(cart.items, user: AuthService().loggedInUser);
       cart.clearCart();
     });
   }
@@ -44,6 +47,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartService>(context);
+    final orders = Provider.of<OrderService>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Checkout')),
@@ -117,7 +121,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   AnimatedActionButton(
                     onPressed: _isProcessing
                         ? null
-                        : () => _startCheckout(cart),
+                        : () => _startCheckout(cart, orders),
                     child: _isProcessing
                         ? const SizedBox(
                             height: 22,
