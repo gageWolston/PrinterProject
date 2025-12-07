@@ -1,6 +1,7 @@
 class Printer {
   final String id;
   final String name;
+  final String brand;
   final String type;
   final bool onSale;
   final double rating;
@@ -12,6 +13,7 @@ class Printer {
   Printer({
     String? id,
     required this.name,
+    required this.brand,
     required this.type,
     required this.onSale,
     required this.rating,

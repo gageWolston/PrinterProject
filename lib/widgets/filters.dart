@@ -15,6 +15,9 @@ class FiltersListState extends State<FilterList> {
     'On Sale',
     'Color',
     'Black & White',
+    'Fax',
+    'Copier',
+    'Scanner',
     'Laser',
     'Inkjet',
     'Dot Matrix'
