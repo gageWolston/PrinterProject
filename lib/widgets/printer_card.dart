@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/printer.dart';
 import '../services/cart_service.dart';
+import 'animated_button.dart';
 
 class PrinterCard extends StatelessWidget {
   final Printer printer;
@@ -21,7 +22,7 @@ class PrinterCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -35,11 +36,14 @@ class PrinterCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                printer.image,
-                width: 90,
-                height: 90,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: printer.id,
+                child: Image.asset(
+                  printer.image,
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(width: 16),
@@ -70,16 +74,25 @@ class PrinterCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     '\$${printer.price.toStringAsFixed(2)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: Colors.blue,
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Consumer<CartService>(
                     builder: (context, cart, child) {
-                      return ElevatedButton(
+                      return AnimatedActionButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
                         onPressed: () {
                           cart.addItem(printer);
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -101,7 +114,7 @@ class PrinterCard extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Theme.of(context).colorScheme.error,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: const Text(
