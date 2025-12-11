@@ -9,24 +9,16 @@ class FilterList extends StatefulWidget {
 }
 
 class FiltersListState extends State<FilterList> {
-
   final List<String> filters = [
     'All Printers',
-    'On Sale',
+    'Laser',
+    'Inkjet',
+    'Dot Matrix',
     'Color',
     'Black & White',
     'Fax',
     'Copier',
     'Scanner',
-    'Laser',
-    'Inkjet',
-    'Dot Matrix',
-    'Brand: HP',
-    'Brand: Canon',
-    'Brand: Epson',
-    'Budget (<\$200)',
-    'Midrange (\$200-\$400)',
-    'Premium (\$400+)'
   ];
 
   final Set<String> selectedFilters = {};
@@ -51,10 +43,22 @@ class FiltersListState extends State<FilterList> {
                 selected: isSelected,
                 onSelected: (selected) {
                   setState(() {
-                    if (selected) {
-                      selectedFilters.add(filter);
+                    if (filter == 'All Printers') {
+                      if (selected) {
+                        selectedFilters
+                          ..clear()
+                          ..add(filter);
+                      } else {
+                        selectedFilters.remove(filter);
+                      }
                     } else {
-                      selectedFilters.remove(filter);
+                      if (selected) {
+                        selectedFilters
+                          ..remove('All Printers')
+                          ..add(filter);
+                      } else {
+                        selectedFilters.remove(filter);
+                      }
                     }
                   });
                   widget.onFiltersChanged(selectedFilters);
@@ -63,7 +67,6 @@ class FiltersListState extends State<FilterList> {
                 },
                 selectedColor: Colors.blue.shade200,
                 showCheckmark: false,
-            
               ),
             );
           },
