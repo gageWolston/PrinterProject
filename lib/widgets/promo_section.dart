@@ -12,18 +12,22 @@ class PromoSection extends StatelessWidget {
   List<(PromoItem, Printer)> _availablePromos(PrinterService service) {
     const promos = [
       PromoItem(
-        title: 'Add our top seller with one tap',
-        description: 'Quickly grab the HP LaserJet Pro Elite for fast checkouts.',
-        startColor: Color(0xFF4A90E2),
-        endColor: Color(0xFF50C9CE),
+        title: 'TOP SELLER',
+        startColor: Color.fromARGB(255, 50, 131, 224),
+        endColor: Color.fromARGB(255, 83, 145, 216),
         printerId: 'top-seller',
       ),
       PromoItem(
-        title: 'Show me the latest color option',
-        description: 'Place the Canon Studio Color straight into your cart.',
-        startColor: Color(0xFF8E2DE2),
-        endColor: Color(0xFF4A00E0),
+        title: 'LATEST MODEL',
+        startColor: Color.fromARGB(255, 125, 11, 224),
+        endColor: Color.fromARGB(255, 134, 36, 219),
         printerId: 'new-arrival',
+      ),
+      PromoItem(
+        title: 'HOLIDAY SALE',
+        startColor: Color.fromARGB(255, 255, 0, 0),
+        endColor: Color.fromARGB(255, 43, 255, 0),
+        printerId: 'holiday-sale',
       ),
     ];
 
@@ -71,36 +75,16 @@ class PromoSection extends StatelessWidget {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    promo.title,
-                    style: textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Text(
-                    promo.description,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: Colors.white.withOpacity(0.9),
-                      height: 1.3,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.touch_app, color: Colors.white70, size: 18),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Tap to add ${printer.name}',
-                        style: textTheme.labelLarge?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      promo.title,
+                      style: textTheme.titleMedium?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 30,
                       ),
-                    ],
-                  ),
+                    ),
                 ],
               ),
             ),
@@ -140,11 +124,6 @@ class PromoSection extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
-              ),
-              const SizedBox(height: 4),
-              Text(
-                promo.description,
-                style: TextStyle(color: Colors.grey.shade700),
               ),
               const SizedBox(height: 12),
               Row(

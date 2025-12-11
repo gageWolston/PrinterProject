@@ -15,7 +15,6 @@ class PrinterService extends ChangeNotifier {
       onSale: true,
       rating: 4.9,
       price: 229.99,
-      image: 'images/printers/canon_inkjet.png',
       description:
           'Our top-selling compact laser with enterprise security and speedy output.',
       highlights: [
@@ -27,7 +26,6 @@ class PrinterService extends ChangeNotifier {
         'Black & White',
         'Copier',
         'Scanner',
-        'Wireless',
       },
     ),
     Printer(
@@ -38,7 +36,6 @@ class PrinterService extends ChangeNotifier {
       onSale: false,
       rating: 4.7,
       price: 349.99,
-      image: 'images/printers/canon_inkjet.png',
       description: 'A fresh arrival with vivid color output and quiet operation.',
       highlights: [
         'Borderless photo printing',
@@ -49,9 +46,26 @@ class PrinterService extends ChangeNotifier {
         'Color',
         'Scanner',
         'Copier',
-        'Wireless',
       },
     ),
+    Printer(id: 'holiday-sale',
+     name: 'Epson EcoTank', 
+     brand: 'Epson', 
+     type: 'Inkjet', 
+     onSale: true, 
+     rating: 4.8, 
+     price: 299.99, 
+     description: 'A cost-effective inkjet with refillable tanks and high-volume printing.',
+      highlights: [
+        'Refillable ink tanks', 
+        'High-volume printing', 
+        'Low-cost per page'
+        ], 
+      features: {
+        'Color', 
+        'Scanner', 
+        'Copier', 
+        }),
   ];
 
   PrinterService() {
@@ -122,7 +136,6 @@ class PrinterService extends ChangeNotifier {
           onSale: true,
           rating: 4.8,
           price: 199.99,
-          image: 'images/printers/canon_inkjet.png',
           description:
               'A fast and reliable laser printer ideal for home offices and small teams.',
           highlights: [
@@ -145,7 +158,6 @@ class PrinterService extends ChangeNotifier {
           onSale: false,
           rating: 4.5,
           price: 129.99,
-          image: 'images/printers/canon_inkjet.png',
           description: 'Vibrant color output with economical cartridges for everyday use.',
           highlights: [
             'Hybrid ink system for crisp text',
@@ -166,7 +178,6 @@ class PrinterService extends ChangeNotifier {
           onSale: true,
           rating: 4.9,
           price: 399.99,
-          image: 'images/printers/epson_ecotank.png',
           description: 'Industrial-grade dot matrix printer built for continuous forms.',
           highlights: [
             'High-impact 9‑pin printing',

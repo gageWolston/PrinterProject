@@ -6,7 +6,6 @@ class Printer {
   final bool onSale;
   final double rating;
   final double price;
-  final String image; // asset path
   final String description;
   final List<String> highlights;
   final Set<String> features;
@@ -19,7 +18,6 @@ class Printer {
     required this.onSale,
     required this.rating,
     required this.price,
-    required this.image,
     required this.description,
     required this.highlights,
     required this.features,
@@ -33,7 +31,6 @@ class Printer {
     bool? onSale,
     double? rating,
     double? price,
-    String? image,
     String? description,
     List<String>? highlights,
     Set<String>? features,
@@ -46,7 +43,6 @@ class Printer {
       onSale: onSale ?? this.onSale,
       rating: rating ?? this.rating,
       price: price ?? this.price,
-      image: image ?? this.image,
       description: description ?? this.description,
       highlights: highlights ?? this.highlights,
       features: features ?? this.features,
@@ -62,7 +58,6 @@ class Printer {
       'onSale': onSale,
       'rating': rating,
       'price': price,
-      'image': image,
       'description': description,
       'highlights': highlights,
       'features': features.toList(),
@@ -78,7 +73,6 @@ class Printer {
       onSale: map['onSale'] as bool,
       rating: (map['rating'] as num).toDouble(),
       price: (map['price'] as num).toDouble(),
-      image: map['image'] as String,
       description: map['description'] as String,
       highlights: List<String>.from(map['highlights'] as List<dynamic>),
       features: Set<String>.from((map['features'] as List<dynamic>? ?? <dynamic>[])

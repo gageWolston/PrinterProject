@@ -236,7 +236,6 @@ class _PrinterEditorDialogState extends State<_PrinterEditorDialog> {
               onSale: onSale,
               rating: rating,
               price: price,
-              image: 'images/printers/canon_inkjet.png',
               description: descriptionController.text.trim(),
               highlights: highlights,
               features: features,
