@@ -197,7 +197,6 @@ class PrinterService extends ChangeNotifier {
           onSale: true,
           rating: 4.6,
           price: 159.99,
-          image: 'images/printers/hp_laserjet.png',
           description:
               'All-in-one inkjet built for small teams with quick scanning and copying.',
           highlights: [
@@ -220,7 +219,6 @@ class PrinterService extends ChangeNotifier {
           onSale: false,
           rating: 4.4,
           price: 329.99,
-          image: 'images/printers/hp_laserjet.png',
           description:
               'Reliable monochrome laser printer with enterprise-ready security.',
           highlights: [

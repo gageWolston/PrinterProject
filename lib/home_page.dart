@@ -52,7 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
             f == 'Black & White' ||
             f == 'Fax' ||
             f == 'Copier' ||
-            f == 'Scanner',
+        f == 'Scanner' ||
+        f == 'Wireless' ||
+        f == 'Wired',
       );
 
       if (featureFilters.isNotEmpty) {

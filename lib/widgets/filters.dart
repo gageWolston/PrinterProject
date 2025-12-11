@@ -20,6 +20,8 @@ class FiltersListState extends State<FilterList> {
     'Fax',
     'Copier',
     'Scanner',
+    'Wireless',
+    'Wired',
   ];
 
   final Set<String> selectedFilters = {};
