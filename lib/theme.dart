@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 ///
 /// Update the colors below to quickly reskin the application.
 class AppPalette {
-  static const Color primary = Color(0xFF2D6A4F);
-  static const Color secondary = Color(0xFF1D3557);
-  static const Color accent = Color(0xFFF77F00);
-  static const Color surface = Color(0xFFF7F8FA);
+  static const Color primary = Color(0xFF1E40AF);
+  static const Color secondary = Color(0xFF3B82F6);
+  static const Color accent = Color(0xFF10B981);
+  static const Color surface = Color(0xFFFAFAFA);
 }
 
 class AppTheme {

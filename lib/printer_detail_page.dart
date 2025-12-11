@@ -120,9 +120,6 @@ class PrinterDetailPage extends StatelessWidget {
                   ),
                   onPressed: () {
                     cart.addItem(printer);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${printer.name} added to cart')),
-                    );
                   },
                   child: const Text('Add to Cart'),
                 );

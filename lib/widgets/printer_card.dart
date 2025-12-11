@@ -20,13 +20,14 @@ class PrinterCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
-            BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2)),
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 16, offset: const Offset(0, 6)),
+            BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 6, offset: const Offset(0, 2)),
           ],
         ),
         child: Column(
@@ -100,9 +101,6 @@ class PrinterCard extends StatelessWidget {
                 return AnimatedActionButton(
                   onPressed: () {
                     cart.addItem(printer);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${printer.name} added to cart')),
-                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),

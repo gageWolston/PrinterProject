@@ -5,6 +5,7 @@ import '../models/promo.dart';
 import '../models/printer.dart';
 import '../services/cart_service.dart';
 import '../services/printer_service.dart';
+import 'animated_button.dart';
 
 class PromoSection extends StatelessWidget {
   const PromoSection({super.key});
@@ -13,20 +14,20 @@ class PromoSection extends StatelessWidget {
     const promos = [
       PromoItem(
         title: 'TOP SELLER',
-        startColor: Color.fromARGB(255, 50, 131, 224),
-        endColor: Color.fromARGB(255, 83, 145, 216),
+        startColor: Color(0xFF06B6D4),
+        endColor: Color(0xFF0891B2),
         printerId: 'top-seller',
       ),
       PromoItem(
         title: 'LATEST MODEL',
-        startColor: Color.fromARGB(255, 125, 11, 224),
-        endColor: Color.fromARGB(255, 134, 36, 219),
+        startColor: Color(0xFFA78BFA),
+        endColor: Color(0xFF6D28D9),
         printerId: 'new-arrival',
       ),
       PromoItem(
         title: 'HOLIDAY SALE',
-        startColor: Color.fromARGB(255, 255, 0, 0),
-        endColor: Color.fromARGB(255, 43, 255, 0),
+        startColor: Color(0xFFEF4444),
+        endColor: Color(0xFF15803D),
         printerId: 'holiday-sale',
       ),
     ];
@@ -53,7 +54,7 @@ class PromoSection extends StatelessWidget {
     return SizedBox(
       height: 170,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 16, bottom: 4),
         scrollDirection: Axis.horizontal,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemCount: items.length,
@@ -160,13 +161,10 @@ class PromoSection extends StatelessWidget {
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: AnimatedActionButton(
                   onPressed: () {
                     cart.addItem(printer);
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${printer.name} added to cart')),
-                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),

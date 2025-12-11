@@ -6,6 +6,7 @@ import 'models/printer.dart';
 import 'printer_detail_page.dart';
 import 'services/printer_service.dart';
 import 'widgets/app_drawer.dart';
+import 'widgets/animated_cart_icon.dart';
 import 'widgets/filters.dart';
 import 'widgets/promo_section.dart';
 import 'widgets/printer_card.dart';
@@ -78,8 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text('Printer Shop'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
+          AnimatedCartIcon(
             onPressed: () {
               Navigator.push(
                 context,
@@ -98,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // Example sections below — you can fill these with product grids/lists later
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.only(left: 20.0, top: 8, bottom: 12, right: 20.0),
               child: Text(
-                'Top Printers',
+                'Printers',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),

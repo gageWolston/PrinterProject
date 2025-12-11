@@ -29,7 +29,7 @@ class FiltersListState extends State<FilterList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       child: SizedBox(
         height: 50,
         child: ListView.builder(
@@ -40,9 +40,15 @@ class FiltersListState extends State<FilterList> {
             final isSelected = selectedFilters.contains(filter);
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 4),
               child: FilterChip(
-                label: Text(filter),
+                label: Text(
+                  filter,
+                  style: TextStyle(
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                    color: isSelected ? Colors.white : Colors.black87,
+                  ),
+                ),
                 selected: isSelected,
                 onSelected: (selected) {
                   setState(() {
@@ -68,7 +74,14 @@ class FiltersListState extends State<FilterList> {
 
                   debugPrint('Active filters: $selectedFilters');
                 },
-                selectedColor: Colors.blue.shade200,
+                selectedColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Colors.white,
+                side: BorderSide(
+                  color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey.shade400,
+                  width: isSelected ? 2.5 : 1.5,
+                ),
+                elevation: isSelected ? 4 : 1,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 showCheckmark: false,
               ),
             );

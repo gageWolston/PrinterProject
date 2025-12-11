@@ -12,22 +12,17 @@ class AppDrawer extends StatelessWidget{
       child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              SizedBox(
-                height: 100,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    image: DecorationImage(image: AssetImage('images/my_header_image.png'),
-                    fit: BoxFit.fill,
-                    ),
-                  ),
-                  padding: EdgeInsetsGeometry.directional(start: 120, top: 10),
-                  child: Text(
-                    'Menu',
-                    style:TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
+              Container(
+                height: 56,
+                color: Theme.of(context).colorScheme.primary,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

@@ -34,9 +34,9 @@ class _AnimatedActionButtonState extends State<AnimatedActionButton> {
       onPointerUp: (_) => _setPressed(false),
       onPointerCancel: (_) => _setPressed(false),
       child: AnimatedScale(
-        scale: _pressed && widget.onPressed != null ? 0.96 : 1.0,
-        duration: const Duration(milliseconds: 140),
-        curve: Curves.easeOut,
+        scale: _pressed && widget.onPressed != null ? 0.92 : 1.0,
+        duration: const Duration(milliseconds: 80),
+        curve: Curves.easeInOut,
         child: ElevatedButton(
           style: widget.style,
           onPressed: widget.onPressed,
