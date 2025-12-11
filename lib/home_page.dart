@@ -36,6 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return printers.where((printer) {
       bool match = true;
 
+      if (activeFilters.contains('On Sale')) {
+        match = match && printer.onSale;
+      }
+
       final typeFilters = activeFilters.where(
         (f) => f == 'Inkjet' || f == 'Laser' || f == 'Dot Matrix',
       );
