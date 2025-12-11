@@ -62,6 +62,18 @@ class PrinterService extends ChangeNotifier {
 
   List<Printer> get featuredPrinters => List.unmodifiable(_featuredPrinters);
 
+  Printer? findById(String id) {
+    for (final printer in _printers) {
+      if (printer.id == id) return printer;
+    }
+
+    for (final printer in _featuredPrinters) {
+      if (printer.id == id) return printer;
+    }
+
+    return null;
+  }
+
   void addPrinter(Printer printer) {
     _printers.add(printer);
     _persist();
