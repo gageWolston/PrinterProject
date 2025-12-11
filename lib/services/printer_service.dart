@@ -190,5 +190,50 @@ class PrinterService extends ChangeNotifier {
             'Wired',
           },
         ),
+        Printer(
+          name: 'Brother OfficeJet Multi',
+          brand: 'Brother',
+          type: 'Inkjet',
+          onSale: true,
+          rating: 4.6,
+          price: 159.99,
+          image: 'images/printers/hp_laserjet.png',
+          description:
+              'All-in-one inkjet built for small teams with quick scanning and copying.',
+          highlights: [
+            '35-sheet auto document feeder',
+            'Mobile app setup and remote management',
+            'Automatic duplex printing',
+          ],
+          features: {
+            'Color',
+            'Scanner',
+            'Copier',
+            'Fax',
+            'Wireless',
+          },
+        ),
+        Printer(
+          name: 'Xerox WorkCentre Pro',
+          brand: 'Xerox',
+          type: 'Laser',
+          onSale: false,
+          rating: 4.4,
+          price: 329.99,
+          image: 'images/printers/hp_laserjet.png',
+          description:
+              'Reliable monochrome laser printer with enterprise-ready security.',
+          highlights: [
+            '38 ppm black printing',
+            'Auto-duplex and secure PIN release',
+            'Robust toner yield for busy offices',
+          ],
+          features: {
+            'Black & White',
+            'Copier',
+            'Scanner',
+            'Wireless',
+          },
+        ),
       ];
 }

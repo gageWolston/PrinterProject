@@ -11,6 +11,7 @@ class FilterList extends StatefulWidget {
 class FiltersListState extends State<FilterList> {
   final List<String> filters = [
     'All Printers',
+    'On Sale',
     'Laser',
     'Inkjet',
     'Dot Matrix',
