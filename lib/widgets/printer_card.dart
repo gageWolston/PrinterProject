@@ -26,8 +26,8 @@ class PrinterCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 16, offset: const Offset(0, 6)),
-            BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 6, offset: const Offset(0, 2)),
+            BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.12), blurRadius: 16, offset: const Offset(0, 6)),
+            BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.06), blurRadius: 6, offset: const Offset(0, 2)),
           ],
         ),
         child: Column(

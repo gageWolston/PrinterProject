@@ -76,9 +76,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
         _discountRate = coupons[code]!;
         _couponError = null;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Coupon $code applied')),
-      );
     } else {
       setState(() {
         _appliedCoupon = null;

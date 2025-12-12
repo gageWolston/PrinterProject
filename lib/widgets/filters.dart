@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FilterList extends StatefulWidget {
@@ -29,7 +30,7 @@ class FiltersListState extends State<FilterList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       child: SizedBox(
         height: 50,
         child: ListView.builder(
@@ -72,7 +73,7 @@ class FiltersListState extends State<FilterList> {
                   });
                   widget.onFiltersChanged(selectedFilters);
 
-                  debugPrint('Active filters: $selectedFilters');
+                  if (kDebugMode) debugPrint('Active filters: $selectedFilters');
                 },
                 selectedColor: Theme.of(context).colorScheme.primary,
                 backgroundColor: Colors.white,

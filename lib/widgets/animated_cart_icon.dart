@@ -17,6 +17,8 @@ class _AnimatedCartIconState extends State<AnimatedCartIcon> with TickerProvider
   late Animation<double> _scale;
   int _lastCartItemCount = 0;
 
+  late CartService _cartService;
+
   @override
   void initState() {
     super.initState();
@@ -27,23 +29,28 @@ class _AnimatedCartIconState extends State<AnimatedCartIcon> with TickerProvider
     _scale = Tween<double>(begin: 1.0, end: 1.15).animate(
       CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _cartService = context.read<CartService>();
+      _lastCartItemCount = _cartService.items.length;
+      _cartService.addListener(_onCartChanged);
+    });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final cartService = context.read<CartService>();
-    // Trigger animation if cart items increased
-    if (cartService.items.length > _lastCartItemCount) {
-      _lastCartItemCount = cartService.items.length;
-      _controller.forward().then((_) {
-        _controller.reverse();
-      });
+  void _onCartChanged() {
+    if (!mounted) return;
+    final newCount = _cartService.items.length;
+    if (newCount > _lastCartItemCount) {
+      _lastCartItemCount = newCount;
+      _controller.forward().then((_) => _controller.reverse());
+    } else {
+      _lastCartItemCount = newCount;
     }
   }
 
   @override
   void dispose() {
+    _cartService.removeListener(_onCartChanged);
     _controller.dispose();
     super.dispose();
   }

@@ -14,6 +14,10 @@ void main() async {
   await Hive.openBox('users'); // local db for username + password
   await Hive.openBox('printers');
   await Hive.openBox('orders');
+  
+  // Clear login state on app start to ensure fresh login
+  final usersBox = Hive.box('users');
+  usersBox.delete('_loggedInUser');
 
   runApp(
     MultiProvider(

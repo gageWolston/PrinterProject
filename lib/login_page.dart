@@ -60,8 +60,6 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     if (!success) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Login/Register failed")));
       return;
     }
 
@@ -86,8 +84,6 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     // Registration successful
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Registration complete")));
     setState(() => isRegisterMode = false);
   }
 

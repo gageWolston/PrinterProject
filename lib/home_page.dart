@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // Example sections below — you can fill these with product grids/lists later
             const Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 8, bottom: 12, right: 20.0),
+              padding: EdgeInsets.only(left: 12.0, top: 8, bottom: 12, right: 12.0),
               child: Text(
                 'Printers',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

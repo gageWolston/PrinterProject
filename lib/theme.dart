@@ -7,7 +7,7 @@ class AppPalette {
   static const Color primary = Color(0xFF1E40AF);
   static const Color secondary = Color(0xFF3B82F6);
   static const Color accent = Color(0xFF10B981);
-  static const Color surface = Color(0xFFFAFAFA);
+  static const Color surface = Color(0xFFECEFF1);
 }
 
 class AppTheme {

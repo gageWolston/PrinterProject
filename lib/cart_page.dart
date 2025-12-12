@@ -45,15 +45,14 @@ class CartPage extends StatelessWidget {
           AnimatedActionButton(
             onPressed: () async {
               if (!auth.isLoggedIn()) {
-                final loggedIn = await Navigator.push<bool>(
+                await Navigator.push<bool>(
                   context,
                   _slideRoute<bool>(LoginPage(fromCheckout: true)),
                 );
-
-                if (loggedIn == true && context.mounted) {
-                  Navigator.push(context, _slideRoute<void>(const CheckoutPage()));
-                }
-              } else {
+              }
+              
+              // After login attempt, check if now logged in
+              if (auth.isLoggedIn() && context.mounted) {
                 Navigator.push(context, _slideRoute<void>(const CheckoutPage()));
               }
             },
