@@ -58,18 +58,25 @@ class AppDrawer extends StatelessWidget{
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text('Admin Account Info'),
                       content: const Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
+                       
                         children: [
-                          Text('Username: Admin'),
+                          SizedBox(height: 24),
+                          Text(
+                            'Username: Admin',
+                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
                           SizedBox(height: 8),
-                          Text('Password: 1234'),
+                          Text(
+                            'Password: 1234',
+                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
                           SizedBox(height: 12),
                           Text(
-                            'For testing only. Do not use these credentials in production.',
-                            style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                            "don't tell anybody..",
+                            style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                           ),
                         ],
                       ),

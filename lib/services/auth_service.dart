@@ -7,7 +7,6 @@ class AuthService {
 
   static const _loggedInKey = '_loggedInUser';
   static const _adminUser = 'Admin';
-  // Test-only admin account; change or remove before shipping to production
   static const _adminPassword = '1234';
 
   factory AuthService() {

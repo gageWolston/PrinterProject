@@ -3,7 +3,7 @@
 A small Flutter app used for a software engineering project. It demonstrates listings of printers, promos, a cart, and a minimal auth flow for testing.
 
 ## Notes
-- Admin test credentials: **Username:** `Admin`, **Password:** `1234` (displayed in the drawer under "Super Secret Admin Account Info"). **For testing only.**
+- Admin test credentials: **Username:** `Admin`, **Password:** `1234` (displayed in the drawer under "Super Secret Admin Account Info"). **don't tell anybody..**
 - The app clears any logged-in session on startup to avoid leaking state between runs. Registered user accounts (username/password) are persisted in Hive.
 - Snackbars have been removed to avoid blocking interactions; the app uses subtle visual feedback (animated cart icon + button press animations).
 
